@@ -1,10 +1,10 @@
-{View} = require 'atom'
+{View} = require 'atom-space-pen-views'
 domify = require 'domify'
 CommandOutputView = require './command-output-view'
 
 module.exports =
 class CliStatusView extends View
-  @content: ->
+  @content: ->  # Content specifies the HTML layout
     @div class: 'cli-status inline-block', =>
       @span outlet: 'termStatusContainer', =>
       @span click: 'newTermClick', class: "cli-status icon icon-plus"
@@ -12,10 +12,10 @@ class CliStatusView extends View
   commandViews: []
   activeIndex: 0
   initialize: (serializeState) ->
-    atom.workspaceView.command 'terminal-status:new', => @newTermClick()
-    atom.workspaceView.command 'terminal-status:toggle', => @toggle()
-    atom.workspaceView.command 'terminal-status:next', => @activeNextCommandView()
-    atom.workspaceView.command 'terminal-status:prev', => @activePrevCommandView()
+    atom.commands.add 'atom-workspace', "term-status-atom:new", => @newTermClick()
+    atom.commands.add 'atom-workspace', "term-status-atom:toggle", => @toggle()
+    atom.commands.add 'atom-workspace', "term-status-atom:next", => @activeNextCommandView()
+    atom.commands.add 'atom-workspace', "term-status-atom:prev", => @activePrevCommandView()
     @createCommandView()
     @attach()
 

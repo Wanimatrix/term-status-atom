@@ -1,16 +1,18 @@
 {
   "name": "term-status-atom",
   "main": "./lib/term-status-atom",
-  "version": "0.0.0",
-  "description": "A short description of your package",
-  "activationCommands": {
-    "atom-workspace": "term-status-atom:toggle"
-  },
-  "repository": "https://github.com/atom/term-status-atom",
+  "version": "0.0.1",
+  "description": "A full blown terminal with status icon",
+  "repository": "https://github.com/Wouter92/term-status-atom",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
   },
   "dependencies": {
+    "ansi-html-stream": "0.0.3",
+    "domify": "~1.2.2",
+    "domutil": "~0.2.1",
+    "atom-space-pen-views": "~0.21.0",
+    "react": "~0.12.1"
   }
 }

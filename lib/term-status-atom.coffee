@@ -1,4 +1,4 @@
-CliStatusView = require './cli-status-view'
+CliStatusView = require './term-status-atom-view'
 
 module.exports =
   cliStatusView: null
@@ -7,7 +7,7 @@ module.exports =
     createStatusEntry = =>
       @cliStatusView = new CliStatusView(state.cliStatusViewState)
 
-    if atom.workspaceView.statusBar
+    if atom.views.getView(atom.workspace).statusBar
       createStatusEntry()
     else
       atom.packages.once 'activated', ->

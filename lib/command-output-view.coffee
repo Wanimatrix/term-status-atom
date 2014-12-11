@@ -1,4 +1,5 @@
-{View, EditorView} = require 'atom'
+{CompositeDisposable} = require 'atom'
+{View, TextEditorView} = require 'atom-space-pen-views'
 {spawn, exec} = require 'child_process'
 ansihtml = require 'ansi-html-stream'
 readline = require 'readline'
@@ -11,6 +12,7 @@ lastOpenedView = null
 module.exports =
 class CommandOutputView extends View
   cwd: null
+  wHeightDisposable : null
   @content: ->
     @div tabIndex: -1, class: 'panel cli-status panel-bottom', =>
       @div class: 'panel-heading', =>
@@ -27,10 +29,10 @@ class CommandOutputView extends View
       @div class: 'cli-panel-body', =>
         @pre class: "terminal", outlet: "cliOutput",
           "Welcome to terminal status. http://github.com/guileen/terminal-status"
-        @subview 'cmdEditor', new EditorView(mini: true, placeholderText: 'input your command here')
+        @subview 'cmdEditor', new TextEditorView(mini: true, placeholderText: 'input your command here')
 
   initialize: ->
-    @subscribe atom.config.observe 'terminal-status.WindowHeight', => @adjustWindowHeight()
+    wHeightDisposable = atom.config.observe 'term-status-atom.WindowHeight', => @adjustWindowHeight()
 
     @userHome = process.env.HOME or process.env.HOMEPATH or process.env.USERPROFILE;
     cmd = 'test -e /etc/profile && source /etc/profile;test -e ~/.profile && source ~/.profile; node -pe "JSON.stringify(process.env)"'
@@ -40,7 +42,7 @@ class CommandOutputView extends View
       @toggle()
 
     @on "core:confirm", =>
-      inputCmd = @cmdEditor.getEditor().getText()
+      inputCmd = @cmdEditor.getText()
       @cliOutput.append "\n$>#{inputCmd}\n"
       @scrollToBottom()
       args = []
@@ -58,12 +60,13 @@ class CommandOutputView extends View
 
 
   adjustWindowHeight: ->
-    maxHeight = atom.config.get('terminal-status.WindowHeight')
+    console.log 'Adjust WHeight '
+    maxHeight = atom.config.get('term-status-atom.WindowHeight')
     @cliOutput.css("max-height", "#{maxHeight}px")
 
   showCmd: ->
     @cmdEditor.show()
-    @cmdEditor.getEditor().selectAll()
+    @cmdEditor.getModel().selectAll()
     @cmdEditor.focus()
     @scrollToBottom()
 

@@ -1,38 +1,40 @@
-CliStatus = require '../lib/cli-status'
+TermStatus = require '../lib/term-status-atom'
 
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
 #
 # To run a specific `it` or `describe` block add an `f` to the front (e.g. `fit`
 # or `fdescribe`). Remove the `f` to unfocus the block.
 
-describe "CliStatus", ->
+describe "TermStatus", ->
   activationPromise = null
+  workspaceElement = null
 
   beforeEach ->
-    atom.workspaceView = new WorkspaceView
-    activationPromise = atom.packages.activatePackage('cliStatus')
+    workspaceElement = atom.views.getView(atom.workspace)
+    # atom.workspaceView = atom.views.getView(atom.workspace).__spacePenView
+    activationPromise = atom.packages.enablePackage('term-status-atom')
 
   describe "when the cli-status:toggle event is triggered", ->
     it "attaches and then detaches the view", ->
-      expect(atom.workspaceView.find('.cli-status')).not.toExist()
+      expect(workspaceElement.classList.contains('cli-status')).not.toExist()
 
       # This is an activation event, triggering it will cause the package to be
       # activated.
-      atom.workspaceView.trigger 'cli-status:toggle'
+      atom.commands.dispatch(workspaceElement,'terminal:toggle')
 
       waitsForPromise ->
         activationPromise
 
       runs ->
-        expect(atom.workspaceView.find('.cli-status')).toExist()
-        atom.workspaceView.trigger 'cli-status:toggle'
-        expect(atom.workspaceView.find('.cli-status')).not.toExist()
+        expect(workspaceElement.classList.contains('cli-status')).toExist()
+        atom.commands.dispatch(workspaceElement,'terminal:toggle')
+        expect(workspaceElement.classList.contains('cli-status')).not.toExist()
 
-  describe "when cli-status is activated", ->
-    it "should have configuration set up with defaults"
-
-    waitsForPromise ->
-      activationPromise
-
-    runs ->
-        expect(atom.config.get('terminal-status.WindowHeight')).toBe(300)
+  # describe "when cli-status is activated", ->
+  #   it "should have configuration set up with defaults"
+  #
+  #   waitsForPromise ->
+  #     activationPromise
+  #
+  #   runs ->
+  #       expect(atom.config.get('term-status-atom.WindowHeight')).toBe(300)

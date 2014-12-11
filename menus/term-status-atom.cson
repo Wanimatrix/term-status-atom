@@ -5,10 +5,10 @@
     'submenu': [
       'label': 'Atom Terminal'
       'submenu': [
-        { 'label': 'New', 'command': 'terminal-status:new' }
-        { 'label': 'Toggle', 'command': 'terminal-status:toggle' }
-        { 'label': 'Prev', 'command': 'terminal-status:prev' }
-        { 'label': 'Next', 'command': 'terminal-status:next' }
+        { 'label': 'New', 'command': 'terminal:new' }
+        { 'label': 'Toggle', 'command': 'terminal:toggle' }
+        { 'label': 'Prev', 'command': 'terminal:prev' }
+        { 'label': 'Next', 'command': 'terminal:next' }
       ]
     ]
   }
