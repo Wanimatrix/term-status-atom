@@ -1,5 +1,8 @@
 # term-status-atom package
 
-A short description of your package.
+**WARNING:** This package is currently in pre-alpha phase. The code is very buggy and rather unlikely to work. This is also why the package is not yet published in the Atom Package Manager.
 
-![A screenshot of your spankin' package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+## Purpose
+The purpose of this package is to provide a terminal view inside Atom, that also displays some status symbols in the status bar (even when the terminal windows are closed).
+
+Actually, this package is originated from a merge between the package [terminal-status](https://github.com/guileen/terminal-status.git) and [atom-term2](https://github.com/webBoxio/atom-term2.git). I therefore deeply thank the creators for their hard work!
