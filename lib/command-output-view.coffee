@@ -29,7 +29,7 @@ class CommandOutputView extends View
       @div class: 'cli-panel-body', =>
         @pre class: "terminal", outlet: "cliOutput",
           "Welcome to terminal status. http://github.com/guileen/terminal-status"
-        @subview 'cmdEditor', new TextEditorView(mini: true, placeholderText: 'input your command here')
+        @subview 'cmdEditor', new TextEditorView(mini: false, placeholderText: 'input your command here')
 
   initialize: ->
     wHeightDisposable = atom.config.observe 'term-status-atom.WindowHeight', => @adjustWindowHeight()

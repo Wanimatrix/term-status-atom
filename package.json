@@ -13,6 +13,11 @@
     "domify": "~1.2.2",
     "domutil": "~0.2.1",
     "atom-space-pen-views": "~0.21.0",
-    "react": "~0.12.1"
+    "react": "~0.12.1",
+    "pty.js": "~0.2.4",
+    "keypather": "~1.7.5",
+    "fs-plus": "~2.3.2",
+    "debounce": "~1.0.0",
+    "atom-term.js": "~0.0.55"
   }
 }
